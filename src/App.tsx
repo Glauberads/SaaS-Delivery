@@ -1,30 +1,17 @@
-import { Navbar } from "./components/Navbar"
-import { Hero } from "./components/Hero"
-import { Pain } from "./components/Pain"
-import { Opportunity } from "./components/Opportunity"
-import { Features } from "./components/Features"
-import { BusinessModel } from "./components/BusinessModel"
-import { SocialProof } from "./components/SocialProof"
-import { Pricing } from "./components/Pricing"
-import { CTA } from "./components/CTA"
-import { Footer } from "./components/Footer"
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { LandingPage } from './pages/LandingPage'
+import { AdminLogin } from './pages/AdminLogin'
+import { AdminLeads } from './pages/AdminLeads'
 
 function App() {
   return (
-    <div className="min-h-screen bg-background text-text-main selection:bg-primary/30 selection:text-white">
-      <Navbar />
-      <main>
-        <Hero />
-        <Pain />
-        <Opportunity />
-        <Features />
-        <BusinessModel />
-        <SocialProof />
-        <Pricing />
-        <CTA />
-      </main>
-      <Footer />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route path="/admin/leads" element={<AdminLeads />} />
+      </Routes>
+    </Router>
   )
 }
 
