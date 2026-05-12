@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Eye, EyeOff, Lock, Mail, AlertCircle, ArrowRight } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
-// import { supabase } from '../lib/auth'
+import { supabase } from '../lib/auth'
 
 export function AdminLogin() {
   const navigate = useNavigate()
@@ -30,20 +30,11 @@ export function AdminLogin() {
     setIsLoading(true)
 
     try {
-      // TODO: Replace with real Supabase authentication when ready
-      // const { data, error } = await supabase.auth.signInWithPassword({
-      //   email,
-      //   password,
-      // })
-      // if (error) throw error
-      
-      // Simulating network request for now
-      await new Promise(resolve => setTimeout(resolve, 1500))
-
-      // Simulate generic error for demonstration if needed, or just redirect
-      if (email !== 'admin@vipdelivery.com' || password !== 'admin123') {
-        throw new Error('E-mail ou senha incorretos.')
-      }
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      })
+      if (error) throw error
 
       // Success -> Redirect to dashboard
       navigate('/admin/leads')
