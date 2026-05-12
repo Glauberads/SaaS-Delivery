@@ -8,8 +8,11 @@ import { SocialProof } from "../components/SocialProof"
 import { Pricing } from "../components/Pricing"
 import { CTA } from "../components/CTA"
 import { Footer } from "../components/Footer"
+import { useTrafficTracking } from "../hooks/useTrafficTracking"
 
 export function LandingPage() {
+  useTrafficTracking() // Inicializa tracking de página, scroll e time on page
+
   return (
     <div className="min-h-screen bg-background text-text-main selection:bg-primary/30 selection:text-white">
       <Navbar />
