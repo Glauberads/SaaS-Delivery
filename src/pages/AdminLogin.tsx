@@ -30,11 +30,21 @@ export function AdminLogin() {
     setIsLoading(true)
 
     try {
-      const { error } = await supabase.auth.signInWithPassword({
+      const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
       })
       if (error) throw error
+
+      // Validar se o usuário é super admin (por e-mail ou por metadata)
+      const allowedEmails = ['glauberads21@gmail.com', 'dhsolucoesdigital001@gmail.com']
+      const userEmail = data.user?.email || ''
+      const isSuperAdmin = data.user?.user_metadata?.role === 'super_admin' || allowedEmails.includes(userEmail)
+
+      if (!isSuperAdmin) {
+        await supabase.auth.signOut() // Desloga imediatamente
+        throw new Error('Acesso negado. Esta conta não possui privilégios de administrador.')
+      }
 
       // Success -> Redirect to dashboard
       navigate('/admin/leads')
